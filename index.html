@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Game</title>
+</head>
+<body>
+<canvas id="my_canvas"></canvas>
+<script>
+
+var canvas = null;
+var context = null;
+var img = null;
+
+var assets = ['https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk00.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk01.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk02.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk03.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk04.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk05.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk06.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk07.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk08.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk09.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk10.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk11.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk12.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk13.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk15.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk16.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk17.png',
+						  'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk18.png'
+						 ];
+var frames = [];
+var currentFrame = 0;
+var blank;
+var nimg = assets.length + 1;
+var n = 0;
+
+setup = function() {
+
+	canvas = document.getElementById('my_canvas');
+    context = canvas.getContext("2d");
+
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+    for(var i = 0;i< assets.length; i++){
+        img = new Image();
+        img.onload = onImageLoad;
+        img.src = assets[i];
+        frames.push(img);
+    }
+
+    blank = new Image();
+    blank.src = "media/img/gamedev/blank.png";
+    blank.onload = onImageLoad;
+
+
+};
+var animate = function(){
+    context.drawImage(blank, 192, 192);
+    context.drawImage(frames[currentFrame], 192, 192);
+
+    currentFrame++;
+    currentFrame = (currentFrame%frames.length == 0)?0:currentFrame;
+}
+
+
+onImageLoad = function(){
+    console.log(n);
+    n++;
+    if(n == nimg){
+        setInterval(animate, 100);
+    }
+
+}
+setup();
+
+</script>
+</body>
+</html>
